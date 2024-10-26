@@ -48,5 +48,5 @@ def main():
 if __name__ == "__main__":
     scheduler = BlockingScheduler()
     # 每天早上 8 点执行一次消息推送
-  scheduler.add_job(main, 'cron', hour=20, minute=44) #晚上8点50推送
+  scheduler.add_job(main, 'cron', hour=20, minute=48) #晚上8点50推送
     scheduler.start()
