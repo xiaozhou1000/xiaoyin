@@ -45,9 +45,8 @@ def main():
     weather_info = get_weather_info()
     send_wechat_message(weather_info, appid, secret, template_id, openid)
 
-from apscheduler.schedulers.background import BackgroundScheduler
-
 if __name__ == "__main__":
-    scheduler = BackgroundScheduler()
-    scheduler.add_job(main, 'cron', hour=12, minute=48)
-    scheduler.start()
+    scheduler = BlockingScheduler()
+    # 每天早上 8 点执行一次消息推送
+  scheduler.add_job(main, 'cron', hour=20, minute=48) #晚上8点50推送
+    scheduler.start()，
