@@ -46,6 +46,9 @@ def main():
     send_wechat_message(weather_info, appid, secret, template_id, openid)
 
 if __name__ == "__main__":
-    scheduler = BlockingScheduler()
-    scheduler.add_job(main, 'cron', hour=12, minute=48)  # UTC时间12:48=北京时间20:48
-    scheduler.start()
+    try:
+        scheduler = BlockingScheduler()
+        scheduler.add_job(main, 'cron', hour=12, minute=48)
+        scheduler.start()
+    except KeyboardInterrupt:
+        scheduler.shutdown()
