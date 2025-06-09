@@ -1,7 +1,8 @@
 name: Morning
 on:
   schedule:
-    - cron: '0 0 * * *'  # UTC时间0点（北京时间8点）
+    - cron: '0 16 * * *'  # UTC时间16点=北京时间24点（原需求晚上8点需改为UTC 12点）
+      timezone: Asia/Shanghai  # 显式声明时区[1](@ref)
   workflow_dispatch:
 
 jobs:
@@ -15,6 +16,7 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.10'
+          architecture: 'x64'  # 32位支持通过后续步骤实现[3](@ref)
 
       - name: Install 32-bit libraries
         run: |
@@ -23,7 +25,9 @@ jobs:
           sudo apt install -y libc6:i386 zlib1g:i386
 
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt apscheduler==3.10.1  # 显式指定版本[7](@ref)
 
       - name: Run script
         run: python ./main.py
