@@ -51,4 +51,3 @@ if __name__ == "__main__":
     scheduler = BackgroundScheduler()
     scheduler.add_job(main, 'cron', hour=12, minute=48)
     scheduler.start()
-    input("按回车键退出...\n")  # 保持进程运行
