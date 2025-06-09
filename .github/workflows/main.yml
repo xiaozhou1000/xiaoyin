@@ -1,3 +1,22 @@
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. 设置Python环境（必须指定版本）
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.9"  # 精确匹配所需版本
+          architecture: "x64"    # 强制使用64位
+
+      # 2. 安装32位兼容库（仅当依赖原生32位组件时）
+      - name: Install 32-bit support
+        run: |
+          sudo dpkg --add-architecture i386
+          sudo apt update
+          sudo apt install libc6:i386 zlib1g:i386
+
+#############################
 name: morning
 on:
   schedule:
